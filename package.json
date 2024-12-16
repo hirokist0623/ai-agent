@@ -1,0 +1,10 @@
+{
+  "name": "ai-agent-cli",
+  "version": "1.0.0",
+  "bin": {
+    "ai-agent": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node ./bin/cli.js"
+  }
+}
