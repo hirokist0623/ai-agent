@@ -53,6 +53,35 @@ def get_pr_template():
         return ""
 
 
+def check_existing_pr(repo, head):
+    github_token = os.environ.get("GITHUB_TOKEN")
+    if not github_token:
+        print("Error: GITHUB_TOKEN environment variable is not set.")
+        sys.exit(1)
+
+    url = f"https://api.github.com/repos/{repo}/pulls"
+    headers = {
+        "Authorization": f"token {github_token}",
+        "Accept": "application/vnd.github.v3+json",
+    }
+    params = {"state": "open", "head": head}
+
+    response = requests.get(url, headers=headers, params=params, timeout=10)
+
+    if response.status_code == 200:
+        prs = response.json()
+        if prs:
+            pr_url = prs[0]["html_url"]
+            print(f"A pull request already exists for this branch: {pr_url}")
+            return True
+    else:
+        print(f"Error checking existing pull requests: {response.status_code}")
+        print(response.text)
+        sys.exit(1)
+
+    return False
+
+
 def create_pull_request(repo, base, head, title, body):
     github_token = os.environ.get("GITHUB_TOKEN")
     if not github_token:
@@ -86,6 +115,11 @@ def main():
     print(f"Base branch: {base}")
     print(f"Head branch: {head}")
     print(f"PR title: {title}")
+
+    # Check if PR already exists
+    if check_existing_pr(repo, head):
+        print("Skipping PR creation as one already exists.")
+        return
 
     # Get PR body from template
     body = get_pr_template()
