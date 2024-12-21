@@ -1,10 +1,16 @@
 import importlib
 
-agents = ["agents.planning.create_readme.structures.main"]
+agents = [
+    "agents.execution.git.branch_manager",
+    "agents.planning.create_readme.structures.main",
+    "agents.execution.git.commit_manager",
+    "agents.execution.git.push_manager",
+    "agents.execution.git.pr_creator",
+]
 
 
 def execute_agent(agent_path: str) -> None:
-    print(f"Executing agent: {agent_path}")
+    print(f"\n\n[Executing agent] {agent_path}\n")
 
     try:
         module = importlib.import_module(agent_path)
@@ -20,24 +26,32 @@ def execute_agent(agent_path: str) -> None:
 
 def main() -> None:
     index = 0
-    while index < len(agents):
-        execute_agent(agents[index])
+    try:
+        while index < len(agents):
+            execute_agent(agents[index])
 
-        while True:
-            user_input = input("Do you want to proceed? [y/n/q]: ").lower()
-            if user_input == "y":
-                index += 1
-                break
-            elif user_input == "n":
-                # Re-execute the current agent
-                break
-            elif user_input == "q":
-                print("Exiting the program.")
-                return
-            else:
-                print("Invalid input. Please enter y, n, or q.")
+            while True:
+                try:
+                    user_input = input(
+                        "Do you want to proceed? [y/n/q]: "
+                    ).lower()  # noqa
+                    if user_input == "y":
+                        index += 1
+                        break
+                    elif user_input == "n":
+                        # Re-execute the current agent
+                        break
+                    elif user_input == "q":
+                        print("Exiting the program.")
+                        return
+                    else:
+                        print("Invalid input. Please enter y, n, or q.")
+                except KeyboardInterrupt:
+                    print("\nProgram interrupted. Exiting.")
+                    return
 
-    print("All agents have been executed.")
+    except KeyboardInterrupt:
+        print("\nProgram interrupted. Exiting.")
 
 
 if __name__ == "__main__":
