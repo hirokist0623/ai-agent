@@ -6,7 +6,8 @@
   },
   "scripts": {
     "cli": "node ./bin/cli.js",
-    "init": "python -m agent_compositions.init.main"
+    "init": "python -m agent_compositions.init.main",
+    "commit": "python -m agent_compositions.simple_commit_agent"
   },
   "dependencies": {
     "yargs": "^17.0.1"

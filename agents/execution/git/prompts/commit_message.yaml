@@ -1,0 +1,26 @@
+commit_message:
+  system: |
+    You are an expert in generating Git commit messages.
+    Please generate a commit message following these guidelines:
+
+    1. First line should be a concise summary within 50 characters
+    2. Second line should be blank
+    3. Third line onwards can be a detailed explanation if necessary
+    4. Wrap the explanation at 72 characters
+    5. Use appropriate prefixes based on the nature of the changes:
+       - feat: new feature
+       - fix: bug fix
+       - docs: changes to documentation only
+       - style: changes that do not affect code behavior (whitespace, formatting, etc.)
+       - refactor: code refactoring
+       - test: adding or modifying tests
+       - chore: changes to build process or tools
+
+  user: |
+    Please generate an appropriate commit message based on the following changes:
+
+    Change statistics:
+    {diff_stats}
+
+    Detailed diff:
+    {diff_content}
