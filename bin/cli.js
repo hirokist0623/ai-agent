@@ -1,17 +1,59 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs/yargs');
-const { hideBin } = require('yargs/helpers');
+const { spawn } = require('child_process');
+const path = require('path');
+const yargs = require('yargs');
 
-yargs(hideBin(process.argv))
-  .command('run <agent>', '特定のエージェントを実行します', (yargs) => {
-    return yargs.positional('agent', {
-      describe: '実行するエージェントの名前',
-      type: 'string'
-    });
-  }, (argv) => {
-    console.log(`エージェントを実行中: ${argv.agent}`);
-    // ここでエージェントを実行するロジックを実装
-  })
-  .help()
-  .argv;
+const commandConfigs = {
+  "init": {
+    "command": ['init', 'Initialize the agent structure', {}],
+    "module": 'agent_compositions.init.main'
+  },
+  "generate": {
+    "command": ['generate <projectName>', 'Generate GCP infrastructure', (yargs) => {
+      yargs.positional('projectName', {
+        describe: 'Name of the project',
+        type: 'string'
+      });
+    }],
+    "module": 'agents.planning.create_readme.structures.main'
+  }
+};
+
+const yargsInstance = yargs;
+
+// コマンドの動的生成
+Object.entries(commandConfigs).forEach(([key, config]) => {
+  yargsInstance.command(...config.command);
+});
+
+const argv = yargsInstance.help().argv;
+
+const executeCommand = (command) => {
+  const config = commandConfigs[command];
+  if (!config) {
+    console.error(`Unknown command: ${command}`);
+    process.exit(1);
+  }
+
+  const agentsDir = path.join(__dirname, '..');
+  process.env.PYTHONPATH = `${agentsDir}:${process.env.PYTHONPATH || ''}`;
+
+  const args = ['-m', config.module];
+  if (command === 'generate') {
+    args.push(argv.projectName);
+  }
+
+  const pythonProcess = spawn('python', args, {
+    stdio: 'inherit',
+    env: process.env
+  });
+
+  pythonProcess.on('close', (code) => {
+    console.log(`Python script exited with code ${code}`);
+  });
+};
+
+if (argv._[0]) {
+  executeCommand(argv._[0]);
+}

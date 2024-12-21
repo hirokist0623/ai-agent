@@ -1,0 +1,17 @@
+structure: |-
+  # ディレクトリ構成
+
+  ${projectName}/
+  ├── README.md
+  ├── modules/
+  │   ├── vpc/
+  │   ├── iam/
+  │   └── ...
+  ├── environments/
+  │   ├── local/
+  │   ├── staging/
+  │   └── production/
+  ├── .gitignore
+  ├── .terraform-version
+  ├── package.json
+  └── package-lock.json
