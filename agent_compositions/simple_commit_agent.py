@@ -5,10 +5,10 @@ class SimpleCommitAgent(AgentsBase):
     def __init__(self):
         super().__init__(
             [
-                # "agents.execution.git.branch_manager",
+                "agents.execution.git.branch_manager",
                 "agents.execution.git.ai_commit_manager",
-                # "agents.execution.git.push_manager",
-                # "agents.execution.git.pr_creator",
+                "agents.execution.git.push_manager",
+                "agents.execution.git.pr_creator",
             ]
         )
 
