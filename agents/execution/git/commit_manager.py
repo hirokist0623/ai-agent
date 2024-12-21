@@ -2,6 +2,17 @@ import subprocess
 import sys
 
 
+def check_for_changes() -> bool:
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain"], capture_output=True, text=True, check=True
+        )
+        return bool(result.stdout.strip())
+    except subprocess.CalledProcessError as e:
+        print(f"Error checking git status: {e}")
+        sys.exit(1)
+
+
 def add_changes() -> None:
     try:
         subprocess.run(["git", "add", "-A"], check=True)
@@ -41,6 +52,10 @@ def commit_changes(message: str) -> None:
 
 
 def main() -> None:
+    if not check_for_changes():
+        print("No changes to commit. Exiting.")
+        sys.exit(0)
+
     add_changes()
 
     status()
