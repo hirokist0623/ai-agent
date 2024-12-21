@@ -39,8 +39,15 @@ def get_current_branch():
 
 
 def format_pr_title(branch_name):
-    parts = branch_name.split("_")
-    return " ".join(part.capitalize() for part in parts)
+    # Remove 'feature/' prefix if present
+    if branch_name.startswith("feature/"):
+        branch_name = branch_name[8:]
+
+    # Split by underscores or hyphens
+    parts = branch_name.replace("-", " ").replace("_", " ").split()
+
+    # Capitalize each word, except the first one
+    return parts[0] + " " + " ".join(word.capitalize() for word in parts[1:])
 
 
 def get_pr_template():
@@ -64,16 +71,17 @@ def check_existing_pr(repo, head):
         "Authorization": f"token {github_token}",
         "Accept": "application/vnd.github.v3+json",
     }
-    params = {"state": "open", "head": head}
+    params = {"state": "open", "head": f"{repo.split('/')[0]}:{head}"}
 
     response = requests.get(url, headers=headers, params=params, timeout=10)
 
     if response.status_code == 200:
         prs = response.json()
-        if prs:
-            pr_url = prs[0]["html_url"]
-            print(f"A pull request already exists for this branch: {pr_url}")
-            return True
+        for pr in prs:
+            if pr["head"]["ref"] == head:
+                pr_url = pr["html_url"]
+                print(f"A pull request already exists for this branch: {pr_url}")
+                return True
     else:
         print(f"Error checking existing pull requests: {response.status_code}")
         print(response.text)
