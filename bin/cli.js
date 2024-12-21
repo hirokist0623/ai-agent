@@ -15,15 +15,18 @@ const argv = yargs
   .argv;
 
 if (argv._[0] === 'generate') {
-  const pythonScript = path.join(__dirname, 'agents', 'planning', 'create_readme', 'structures', 'main.py');
-  const pythonProcess = spawn('python', ['-m', 'agents.planning.create_readme.structures.main', argv.projectName]);
+  // Set the PYTHONPATH to include the directory containing the 'agents' package
+  const agentsDir = path.join(__dirname, '..');
+  process.env.PYTHONPATH = `${agentsDir}:${process.env.PYTHONPATH || ''}`;
 
-  pythonProcess.stdout.on('data', (data) => {
-    console.log(`${data}`);
-  });
-
-  pythonProcess.stderr.on('data', (data) => {
-    console.error(`${data}`);
+  // Use Python's -m option to run the module as a script
+  const pythonProcess = spawn('python', [
+    '-m',
+    'agents.planning.create_readme.structures.main',
+    argv.projectName
+  ], {
+    stdio: 'inherit', // This will forward all stdio to the parent process
+    env: process.env // Make sure to pass the modified environment
   });
 
   pythonProcess.on('close', (code) => {
