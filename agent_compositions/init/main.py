@@ -2,7 +2,7 @@ import importlib
 
 agents = [
     "agents.execution.git.branch_manager",
-    "agents.planning.create_readme.structures.main",
+    "agents.execution.init_config.create_config",
     "agents.execution.git.commit_manager",
     "agents.execution.git.push_manager",
     "agents.execution.git.pr_creator",
