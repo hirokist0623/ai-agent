@@ -5,7 +5,10 @@ import sys
 def check_for_changes() -> bool:
     try:
         result = subprocess.run(
-            ["git", "status", "--porcelain"], capture_output=True, text=True, check=True
+            ["git", "status", "--porcelain"],
+            capture_output=True,
+            text=True,
+            check=True,
         )
         return bool(result.stdout.strip())
     except subprocess.CalledProcessError as e:

@@ -4,7 +4,7 @@ agents = [
     "agents.execution.git.branch_manager",
     "agents.planning.create_readme.structures.main",
     "agents.execution.git.commit_manager",
-    # "agents.execution.git.push_manager",
+    "agents.execution.git.push_manager",
 ]
 
 
