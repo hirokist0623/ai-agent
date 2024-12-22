@@ -6,6 +6,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 
 from agents.ai_base_agent import AIBaseAgent
 from utils.load_yaml import load_yaml
+from utils.color_print import iinput
 
 
 class AICommitManager(AIBaseAgent):
@@ -19,7 +20,7 @@ class AICommitManager(AIBaseAgent):
         yaml_path = os.path.join(script_dir, "prompts", "commit_message.yaml")
         self.prompts = load_yaml(yaml_path)
 
-    def main(self) -> None:
+    def exec(self) -> None:
         print(f"Starting AI-assisted commit process using {self.model_name}")
         if not self.check_for_changes():
             print("No changes to commit. Exiting.")
@@ -31,7 +32,7 @@ class AICommitManager(AIBaseAgent):
         commit_message = self.generate_commit_message()
         print(f"\nCommit message:\n{commit_message}\n")
 
-        confirmation = input(
+        confirmation = iinput(
             "Do you want to commit these changes? (y/n): "
         ).lower()  # nosec
         if confirmation == "y":

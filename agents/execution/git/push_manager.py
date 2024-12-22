@@ -1,42 +1,62 @@
 import subprocess
 import sys
+import inquirer
+from agents.base_agent import BaseAgent
 
 
-def get_current_branch() -> str:
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        return result.stdout.strip()
-    except subprocess.CalledProcessError as e:
-        print(f"Error getting current branch: {e}")
-        sys.exit(1)
+class PushManager(BaseAgent):
+    def __init__(self):
+        super().__init__("PushManager")
 
+    def exec(self) -> None:
+        current_branch = self.get_current_branch()
+        print(f"Current branch: {current_branch}")
 
-def push_changes(branch: str) -> None:
-    try:
-        subprocess.run(["git", "push", "origin", branch], check=True)
-        print(f"Changes pushed to origin/{branch} successfully.")
-    except subprocess.CalledProcessError as e:
-        print(f"Error pushing changes: {e}")
-        sys.exit(1)
+        action = self.get_action(current_branch)
 
+        if action == "push":
+            self.push_changes(current_branch)
+        else:
+            print("Push cancelled.")
 
-def main() -> None:
-    current_branch = get_current_branch()
-    print(f"Current branch: {current_branch}")
+    def get_current_branch(self) -> str:
+        try:
+            result = subprocess.run(
+                ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            return result.stdout.strip()
+        except subprocess.CalledProcessError as e:
+            print(f"Error getting current branch: {e}")
+            sys.exit(1)
 
-    confirmation = input(
-        f"Do you want to push changes to origin/{current_branch}? (y/n): "
-    ).lower()
-    if confirmation == "y":
-        push_changes(current_branch)
-    else:
-        print("Push cancelled.")
+    def push_changes(self, branch: str) -> None:
+        try:
+            subprocess.run(["git", "push", "origin", branch], check=True)
+            print(f"Changes pushed to origin/{branch} successfully.")
+        except subprocess.CalledProcessError as e:
+            print(f"Error pushing changes: {e}")
+            sys.exit(1)
+
+    def get_action(self, current_branch: str) -> str:
+        questions = [
+            inquirer.List(
+                "action",
+                message=(
+                    f"Do you want to push changes to origin/{current_branch}?"
+                ),  # noqa
+                choices=[
+                    ("Yes, push changes", "push"),
+                    ("No, cancel", "cancel"),
+                ],
+            ),
+        ]
+        answers = inquirer.prompt(questions)
+        return answers["action"]
 
 
 if __name__ == "__main__":
-    main()
+    push_manager = PushManager()
+    push_manager.exec()

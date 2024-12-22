@@ -7,8 +7,6 @@ class AgentsBase:
         self.agents: List[str] = agents
 
     def execute_agent(self, agent_path: str) -> None:
-        print(f"\n\n[Executing agent] {agent_path}\n")
-
         try:
             module = importlib.import_module(agent_path)
             if hasattr(module, "main"):
@@ -53,27 +51,7 @@ class AgentsBase:
         try:
             while index < len(self.agents):
                 self.execute_agent(self.agents[index])
-
-                while True:
-                    try:
-                        user_input = input(
-                            "Do you want to proceed? [y/n/q]: "
-                        ).lower()  # noqa
-                        if user_input == "y":
-                            index += 1
-                            break
-                        elif user_input == "n":
-                            # Re-execute the current agent
-                            break
-                        elif user_input == "q":
-                            print("Exiting the program.")
-                            return
-                        else:
-                            print("Invalid input. Please enter y, n, or q.")
-                    except KeyboardInterrupt:
-                        print("\nProgram interrupted. Exiting.")
-                        return
-
+                index += 1
         except KeyboardInterrupt:
             print("\nProgram interrupted. Exiting.")
 

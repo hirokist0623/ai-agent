@@ -39,21 +39,20 @@ def get_current_branch():
 
 
 def format_pr_title(branch_name):
-    # Remove 'feature/' prefix if present
-    if branch_name.startswith("feature/"):
-        branch_name = branch_name[8:]
+    if not branch_name.lower().startswith("feature/"):
+        branch_name = "feature/" + branch_name
 
-    # Split by underscores or hyphens
-    parts = branch_name.replace("-", " ").replace("_", " ").split()
+    parts = branch_name.split("/")
+    if len(parts) > 1:
+        parts[1] = parts[1].capitalize()
 
-    # Capitalize each word, except the first one
-    return parts[0] + " " + " ".join(word.capitalize() for word in parts[1:])
+    return "Feature/" + "/".join(parts[1:])
 
 
 def get_pr_template():
     template_path = ".github/pull_request_template.md"
     if os.path.exists(template_path):
-        with open(template_path, "r") as file:
+        with open(template_path, "r", encoding="utf-8") as file:
             return file.read()
     else:
         print("Warning: PR template not found. Using empty body.")
