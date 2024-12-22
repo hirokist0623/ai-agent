@@ -2,6 +2,7 @@ import subprocess
 import sys
 import inquirer
 from agents.base_agent import BaseAgent
+from utils.color_print import gprint
 
 
 class PushManager(BaseAgent):
@@ -10,7 +11,7 @@ class PushManager(BaseAgent):
 
     def exec(self) -> None:
         current_branch = self.get_current_branch()
-        print(f"Current branch: {current_branch}")
+        gprint(f"Current branch: {current_branch}")
 
         action = self.get_action(current_branch)
 
