@@ -1,0 +1,88 @@
+.ai_base: {}
+README.md: null
+agent_compositions:
+  __init__.py: null
+  __pycache__:
+    __init__.cpython-312.pyc: null
+    agents_base.cpython-312.pyc: null
+    simple_commit_agent.cpython-312.pyc: null
+  agents_base.py: null
+  init:
+    __init__.py: null
+    __pycache__:
+      __init__.cpython-312.pyc: null
+      main.cpython-312.pyc: null
+    main.py: null
+  simple_commit_agent.py: null
+agents:
+  __init__.py: null
+  __pycache__:
+    __init__.cpython-312.pyc: null
+    ai_base_agent.cpython-312.pyc: null
+    base_agent.cpython-312.pyc: null
+  ai_base_agent.py: null
+  base_agent.py: null
+  execution:
+    __init__.py: null
+    __pycache__:
+      __init__.cpython-312.pyc: null
+      scan_directory_structure.cpython-312.pyc: null
+    git:
+      __init__.py: null
+      __pycache__:
+        __init__.cpython-312.pyc: null
+        ai_commit_manager.cpython-312.pyc: null
+        branch_manager.cpython-312.pyc: null
+        commit_manager.cpython-312.pyc: null
+        pr_creator.cpython-312.pyc: null
+        push_manager.cpython-312.pyc: null
+      ai_commit_manager.py: null
+      branch_manager.py: null
+      commit_manager.py: null
+      pr_creator.py: null
+      prompts:
+        commit_message.yaml: null
+      push_manager.py: null
+    init_config:
+      __pycache__:
+        create_config.cpython-312.pyc: null
+      create_config.py: null
+    scan_directory_structure.py: null
+  multi-agent:
+    __init__.py: null
+    multi_agent_coordinator.py: null
+  planning:
+    __init__.py: null
+    __pycache__:
+      __init__.cpython-312.pyc: null
+    create_readme:
+      __init__.py: null
+      __pycache__:
+        __init__.cpython-312.pyc: null
+      structures:
+        __init__.py: null
+        __pycache__:
+          __init__.cpython-312.pyc: null
+          main.cpython-312.pyc: null
+        main.py: null
+        yaml:
+          infra.yaml: null
+    planning_agent.py: null
+  reflection:
+    __init__.py: null
+    reflection_agent.py: null
+  tool-use:
+    tool_use_agent.py: null
+bin:
+  cli.js: null
+documentation_agent:
+  __pycache__:
+    main.cpython-312.pyc: null
+  main.py: null
+package.json: null
+utils:
+  __init__.py: null
+  __pycache__:
+    __init__.cpython-312.pyc: null
+    load_yaml.cpython-312.pyc: null
+  load_yaml.py: null
