@@ -7,7 +7,7 @@ class InitConfigAgent(BaseAgent):
     def __init__(self):
         super().__init__("InitConfig")
         self.root_dir = self.find_git_root()
-        self.ai_agents_dir = os.path.join(self.root_dir, ".ai-agents")
+        self.ai_agents_dir = os.path.join(self.root_dir, ".ai_agents")
         self.config_file = os.path.join(self.ai_agents_dir, "config.yaml")
         self.log_dir = os.path.join(self.ai_agents_dir, "log")
         self.gitignore_file = os.path.join(self.root_dir, ".gitignore")
@@ -57,7 +57,7 @@ class InitConfigAgent(BaseAgent):
             print(f"Log file already exists: {log_file}")
 
     def update_gitignore(self):
-        gitignore_entry = ".ai-agents"
+        gitignore_entry = ".ai_agents"
 
         # Create .gitignore if it doesn't exist
         if not os.path.exists(self.gitignore_file):
@@ -66,14 +66,14 @@ class InitConfigAgent(BaseAgent):
             print(f"Created .gitignore and added {gitignore_entry}")
             return
 
-        # Check if .ai-agents is already in .gitignore
+        # Check if .ai_agents is already in .gitignore
         with open(self.gitignore_file, "r", encoding="utf-8") as f:
             content = f.read()
             if gitignore_entry in content.split("\n"):
                 print(f"{gitignore_entry} is already in .gitignore")
                 return
 
-        # Append .ai-agents to .gitignore
+        # Append .ai_agents to .gitignore
         with open(self.gitignore_file, "a", encoding="utf-8") as f:
             f.write(f"\n{gitignore_entry}\n")
         print(f"Added {gitignore_entry} to .gitignore")
