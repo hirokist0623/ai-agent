@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 import requests
+import inquirer
 
 from agents.base_agent import BaseAgent
 
@@ -33,13 +34,15 @@ class PRCreator(BaseAgent):
         gprint("PR body template:")
         gprint(body)
 
-        # Allow user to edit the PR body
-        print("\nYou can edit the PR body. Press Enter twice when finished:")
-        user_input = "\n".join(iter(input, ""))
-        if user_input:
-            body = user_input
+        # Ask for confirmation of the PR body
+        confirmation = self.get_confirmation()
+        if confirmation != "confirm":
+            print("PR creation cancelled.")
+            return
 
-        self.create_pull_request(repo, base, head, title, body)
+        pr_url = self.create_pull_request(repo, base, head, title, body)
+        if pr_url:
+            gprint(f"Pull request created successfully. PR URL: {pr_url}")
 
     def get_current_repo(self):
         try:
@@ -54,9 +57,7 @@ class PRCreator(BaseAgent):
             elif remote_url.startswith("git@github.com:"):
                 return remote_url[15:]
             else:
-                print(
-                    "Error: Unable to parse GitHub repository from remote URL."
-                )  # noqa
+                print("Error: Unable to parse GitHub repository from remote URL.")
                 sys.exit(1)
         except subprocess.CalledProcessError:
             print(
@@ -115,13 +116,13 @@ class PRCreator(BaseAgent):
                 if pr["head"]["ref"] == head:
                     pr_url = pr["html_url"]
                     print(
-                        f"A pull request already exists for this branch: {pr_url}"
-                    )  # noqa
+                        f"A pull request already exists for this branch: {pr_url}"  # noqa
+                    )
                     return True
         else:
             print(
-                f"Error checking existing pull requests: {response.status_code}"
-            )  # noqa
+                f"Error checking existing pull requests: {response.status_code}"  # noqa
+            )
             print(response.text)
             sys.exit(1)
 
@@ -143,11 +144,25 @@ class PRCreator(BaseAgent):
         response = requests.post(url, headers=headers, json=data, timeout=10)
 
         if response.status_code == 201:
-            pr_url = response.json()["html_url"]
-            gprint(f"Pull request created successfully: {pr_url}")
+            return response.json()["html_url"]
         else:
             print(f"Error creating pull request: {response.status_code}")
             print(response.text)
+            return None
+
+    def get_confirmation(self) -> str:
+        questions = [
+            inquirer.List(
+                "action",
+                message="Is this PR body template okay?",
+                choices=[
+                    ("Yes, create PR", "confirm"),
+                    ("No, cancel", "cancel"),
+                ],
+            ),
+        ]
+        answers = inquirer.prompt(questions)
+        return answers["action"]
 
 
 if __name__ == "__main__":
