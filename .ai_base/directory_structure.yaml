@@ -1,10 +1,12 @@
-.ai_base: {}
+.ai_base:
+  directory_structure.yaml: null
 README.md: null
 agent_compositions:
   __init__.py: null
   __pycache__:
     __init__.cpython-312.pyc: null
     agents_base.cpython-312.pyc: null
+    readme_creator.cpython-312.pyc: null
     simple_commit_agent.cpython-312.pyc: null
   agents_base.py: null
   init:
@@ -13,6 +15,7 @@ agent_compositions:
       __init__.cpython-312.pyc: null
       main.cpython-312.pyc: null
     main.py: null
+  readme_creator.py: null
   simple_commit_agent.py: null
 agents:
   __init__.py: null
@@ -47,6 +50,13 @@ agents:
       __pycache__:
         create_config.cpython-312.pyc: null
       create_config.py: null
+    readme:
+      __init__.py: null
+      __pycache__:
+        __init__.cpython-312.pyc: null
+        create_structure.cpython-312.pyc: null
+      create_structure.py: null
+      reset_readme.py: null
     scan_directory_structure.py: null
   multi-agent:
     __init__.py: null
@@ -55,18 +65,6 @@ agents:
     __init__.py: null
     __pycache__:
       __init__.cpython-312.pyc: null
-    create_readme:
-      __init__.py: null
-      __pycache__:
-        __init__.cpython-312.pyc: null
-      structures:
-        __init__.py: null
-        __pycache__:
-          __init__.cpython-312.pyc: null
-          main.cpython-312.pyc: null
-        main.py: null
-        yaml:
-          infra.yaml: null
     planning_agent.py: null
   reflection:
     __init__.py: null
@@ -84,5 +82,9 @@ utils:
   __init__.py: null
   __pycache__:
     __init__.cpython-312.pyc: null
+    git.cpython-312.pyc: null
     load_yaml.cpython-312.pyc: null
+    readme.cpython-312.pyc: null
+  git.py: null
   load_yaml.py: null
+  readme.py: null

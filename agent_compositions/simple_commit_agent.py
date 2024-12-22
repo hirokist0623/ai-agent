@@ -12,11 +12,6 @@ class SimpleCommitAgent(AgentsBase):
             ]
         )
 
-    def run(self):
-        print("Starting Simple Commit Process")
-        super().run()
-        print("Simple Commit Process Completed")
-
 
 if __name__ == "__main__":
     simple_commit_agent = SimpleCommitAgent()
