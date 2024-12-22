@@ -10,7 +10,7 @@ class GitCleanupAgent(BaseAgent):
         self.repo = self.get_repo()
         self.main_branch = self.get_main_branch()
 
-    def main(self):
+    def exec(self):
         self.switch_to_main()
         self.pull_latest_changes()
         self.delete_merged_branches()

@@ -3,6 +3,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from agents.base_agent import BaseAgent
+from utils.color_print import cprint
 
 
 class AIBaseAgent(BaseAgent):
@@ -12,6 +13,12 @@ class AIBaseAgent(BaseAgent):
         self.llm = ChatOpenAI(model=model_name, temperature=0.0)
 
     def main(self):
+        cprint("######################################")
+        cprint(f"# Running AI Agent: {self.agent_name}...")
+        cprint("#######################################\n")
+        self.exec()
+
+    def exec(self):
         raise NotImplementedError("Subclasses must implement main method")
 
     def run(self, messages) -> str:

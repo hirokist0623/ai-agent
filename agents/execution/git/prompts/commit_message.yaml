@@ -15,6 +15,8 @@ commit_message:
        - refactor: code refactoring
        - test: adding or modifying tests
        - chore: changes to build process or tools
+    6. Do not use any markdown formatting or code block markers (```)
+    7. Provide the commit message as plain text without any additional formatting
 
   user: |
     Please generate an appropriate commit message based on the following changes:
@@ -24,3 +26,5 @@ commit_message:
 
     Detailed diff:
     {diff_content}
+
+    Remember to follow the guidelines and provide the message as plain text without any markdown or code block markers.
