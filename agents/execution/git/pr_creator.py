@@ -3,6 +3,8 @@ import sys
 import subprocess
 import requests
 
+from utils.color_print import gprint, iinput
+
 
 def get_current_repo():
     try:
@@ -118,10 +120,10 @@ def main():
     head = get_current_branch()
     title = format_pr_title(head)
 
-    print(f"Repository: {repo}")
-    print(f"Base branch: {base}")
-    print(f"Head branch: {head}")
-    print(f"PR title: {title}")
+    gprint(f"Repository: {repo}")
+    gprint(f"Base branch: {base}")
+    gprint(f"Head branch: {head}")
+    gprint(f"PR title: {title}")
 
     # Check if PR already exists
     if check_existing_pr(repo, head):
@@ -130,8 +132,8 @@ def main():
 
     # Get PR body from template
     body = get_pr_template()
-    print("\nPR body template:")
-    print(body)
+    gprint("\nPR body template:")
+    gprint(body)
 
     # Allow user to edit the PR body
     print("\nYou can edit the PR body. Press Enter twice when finished:")
