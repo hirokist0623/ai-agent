@@ -18,7 +18,6 @@ class PRCreator(BaseAgent):
         head = self.get_current_branch()
         title = self.format_pr_title(head)
 
-        gprint("\n")
         gprint(f"Repository: {repo}")
         gprint(f"Base branch: {base}")
         gprint(f"Head branch: {head}")
@@ -31,7 +30,7 @@ class PRCreator(BaseAgent):
 
         # Get PR body from template
         body = self.get_pr_template()
-        gprint("\nPR body template:")
+        gprint("PR body template:")
         gprint(body)
 
         # Allow user to edit the PR body
