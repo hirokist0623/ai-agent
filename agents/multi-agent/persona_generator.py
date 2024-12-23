@@ -2,6 +2,8 @@ from typing import List
 from pydantic import BaseModel, Field
 from agents.ai_base_agent import AIBaseAgent
 
+from utils.color_print import gprint
+
 
 class Persona(BaseModel):
     name: str = Field(..., description="ペルソナの名前")
@@ -47,8 +49,8 @@ class PersonaGenerator(AIBaseAgent):
             input_data={},
         )
         for persona in exec_result.personas:
-            print(f"名前: {persona.name}")
-            print(f"背景: {persona.background}")
+            gprint(f"名前: {persona.name}")
+            gprint(f"背景: {persona.background}")
             print()
 
 
