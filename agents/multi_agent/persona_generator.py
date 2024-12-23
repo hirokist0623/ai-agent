@@ -52,6 +52,7 @@ class PersonaGenerator(AIBaseAgent):
             gprint(f"名前: {persona.name}")
             gprint(f"背景: {persona.background}")
             print()
+        return exec_result
 
 
 if __name__ == "__main__":

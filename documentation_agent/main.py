@@ -274,7 +274,7 @@ class DocumentationAgent:
 
     def _generate_personas(self, state: InterviewState) -> dict[str, Any]:
         # ペルソナの生成
-        new_personas: Personas = self.persona_generator.run(state.user_request)
+        new_personas: Personas = self.persona_generator.main()
         return {
             "personas": new_personas.personas,
             "iteration": state.iteration + 1,
