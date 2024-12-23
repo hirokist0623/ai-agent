@@ -21,7 +21,9 @@ class AIBaseAgent(BaseAgent):
     def exec(self):
         raise NotImplementedError("Subclasses must implement main method")
 
-    def run(self, messages) -> str:
+    def run(self, messages, input_data: dict = None) -> str:
+        if input_data is None:
+            input_data = {}
         prompt = ChatPromptTemplate.from_messages(messages)
         chain = prompt | self.llm | StrOutputParser()
-        return chain.invoke({})
+        return chain.invoke(input_data)
