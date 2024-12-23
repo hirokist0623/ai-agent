@@ -106,8 +106,8 @@ class InterviewConductor(AIBaseAgent):
     def _print_interviews(self, result: InterviewResult) -> None:
         for interview in result.interviews:
             print(f"ペルソナ: {interview.persona.name}")
-            print(f"背景: {interview.persona.background}")
-            print(f"質問: {interview.question}")
+            print(f"背景: {interview.persona.background}\n")
+            gprint(f"質問: {interview.question}")
             gprint(f"回答: {interview.answer}\n\n")
 
 
