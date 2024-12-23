@@ -9,6 +9,10 @@ const commandConfigs = {
     "command": ['init', 'Initialize the agent structure', {}],
     "module": 'agent_compositions.init.main'
   },
+  "cleanup": {
+    "command": ['cleanup', 'Clean up local environment', {}],
+    "module": 'agents.execution.git.cleanup'
+  },
   "generate": {
     "command": ['generate <projectName>', 'Generate GCP infrastructure', (yargs) => {
       yargs.positional('projectName', {
