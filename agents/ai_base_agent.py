@@ -1,6 +1,9 @@
 from typing import Optional, Any
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
+
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
 from agents.base_agent import BaseAgent
 from utils.color_print import cprint
 
@@ -20,7 +23,7 @@ class AIBaseAgent(BaseAgent):
             self.llm = self.llm.with_structured_output(output_type)
 
     def main(self):
-        cprint("######################################")
+        cprint("#######################################")
         cprint(f"# Running AI Agent: {self.agent_name}...")
         cprint("#######################################\n")
         return self.exec()
@@ -32,5 +35,16 @@ class AIBaseAgent(BaseAgent):
         if input_data is None:
             input_data = {}
         prompt = ChatPromptTemplate.from_messages(messages)
+
         chain = prompt | self.llm
+        if not self.output_type:
+            chain = chain | StrOutputParser()
+
         return chain.invoke(input_data)
+
+    def run_batch(self, messages, input_data: list[dict] = None) -> list[Any]:
+        if input_data is None:
+            input_data = {}
+        prompt = ChatPromptTemplate.from_messages(messages)
+        chain = prompt | self.llm | StrOutputParser()
+        return chain.batch(input_data)

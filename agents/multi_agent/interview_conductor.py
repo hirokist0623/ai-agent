@@ -1,7 +1,5 @@
 from typing import List
 
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 
 from agents.ai_base_agent import AIBaseAgent
@@ -49,24 +47,20 @@ class InterviewConductor(AIBaseAgent):
             return InterviewResult()
 
     def _generate_questions(self) -> List[str]:
-        question_prompt = ChatPromptTemplate.from_messages(
-            [
-                (
-                    "system",
-                    "あなたはユーザー要件に基づいて適切な質問を生成する専門家です。",
-                ),
-                (
-                    "human",
-                    "以下のペルソナに関連するユーザーリクエストについて、1つの質問を生成してください。\n\n"
-                    "ユーザーリクエスト: {user_request}\n"
-                    "ペルソナ: {persona_name} - {persona_background}\n\n"
-                    "質問は具体的で、このペルソナの視点から重要な情報を引き出すように設計してください。",
-                ),
-            ]
-        )
-        question_chain = question_prompt | self.llm | StrOutputParser()
-
-        question_queries = [
+        messages = [
+            (
+                "system",
+                "あなたはユーザー要件に基づいて適切な質問を生成する専門家です。",
+            ),
+            (
+                "human",
+                "以下のペルソナに関連するユーザーリクエストについて、1つの質問を生成してください。\n\n"
+                "ユーザーリクエスト: {user_request}\n"
+                "ペルソナ: {persona_name} - {persona_background}\n\n"
+                "質問は具体的で、このペルソナの視点から重要な情報を引き出すように設計してください。",
+            ),
+        ]
+        input_data = [
             {
                 "user_request": self.user_request,
                 "persona_name": persona.name,
@@ -74,24 +68,20 @@ class InterviewConductor(AIBaseAgent):
             }
             for persona in self.personas
         ]
-        return question_chain.batch(question_queries)
+        return self.run_batch(messages, input_data)
 
     def _generate_answers(self, questions: List[str]) -> List[str]:
-        answer_prompt = ChatPromptTemplate.from_messages(
-            [
+        messages = [
+            (
+                "system",
                 (
-                    "system",
-                    (
-                        "あなたは以下のペルソナとして回答しています: "
-                        "{persona_name} - {persona_background}"
-                    ),
+                    "あなたは以下のペルソナとして回答しています: "
+                    "{persona_name} - {persona_background}"
                 ),
-                ("human", "質問: {question}"),
-            ]
-        )
-        answer_chain = answer_prompt | self.llm | StrOutputParser()
-
-        answer_queries = [
+            ),
+            ("human", "質問: {question}"),
+        ]
+        input_data = [
             {
                 "persona_name": persona.name,
                 "persona_background": persona.background,
@@ -99,7 +89,7 @@ class InterviewConductor(AIBaseAgent):
             }
             for persona, question in zip(self.personas, questions)
         ]
-        return answer_chain.batch(answer_queries)
+        return self.run_batch(messages, input_data)
 
     def _create_interviews(
         self, questions: List[str], answers: List[str]
@@ -115,11 +105,10 @@ class InterviewConductor(AIBaseAgent):
 
     def _print_interviews(self, result: InterviewResult) -> None:
         for interview in result.interviews:
-            gprint(f"ペルソナ: {interview.persona.name}")
-            gprint(f"背景: {interview.persona.background}")
-            gprint(f"質問: {interview.question}")
-            gprint(f"回答: {interview.answer}")
-            gprint("---")
+            print(f"ペルソナ: {interview.persona.name}")
+            print(f"背景: {interview.persona.background}")
+            print(f"質問: {interview.question}")
+            gprint(f"回答: {interview.answer}\n\n")
 
 
 if __name__ == "__main__":

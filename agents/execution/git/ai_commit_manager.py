@@ -110,7 +110,7 @@ class AICommitManager(AIBaseAgent):
             HumanMessage(content=user_prompt),
         ]
 
-        return self.run(messages).content
+        return self.run(messages)
 
     def commit_changes(self, message: str) -> None:
         try:
