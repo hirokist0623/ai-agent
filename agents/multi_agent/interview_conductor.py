@@ -136,10 +136,10 @@ if __name__ == "__main__":
     request = args.task or "フィードバックをくれる人"
 
     persona_generator = PersonaGenerator(user_request=request)
-    result = persona_generator.main()
+    result_of_persona_generator = persona_generator.main()
 
     interviewer = InterviewConductor(
         user_request=request,
-        personas=result.personas,
+        personas=result_of_persona_generator.personas,
     )
     interviewer.main()
