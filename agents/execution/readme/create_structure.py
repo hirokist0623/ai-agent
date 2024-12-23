@@ -21,7 +21,7 @@ class CreateStructureAgent(BaseAgent):
     def __init__(self):
         super().__init__("CreateStructureAgent")
 
-    def main(self):
+    def exec(self):
         project_name = self.get_project_name()
         structure = self.load_scanned_structure()
         filtered_structure = self.filter_structure(structure)

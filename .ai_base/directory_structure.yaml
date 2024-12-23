@@ -8,7 +8,9 @@ agent_compositions:
     agents_base.cpython-312.pyc: null
     readme_creator.cpython-312.pyc: null
     simple_commit_agent.cpython-312.pyc: null
+    specification_writer.cpython-312.pyc: null
   agents_base.py: null
+  agents_modern_base.py: null
   init:
     __init__.py: null
     __pycache__:
@@ -17,6 +19,7 @@ agent_compositions:
     main.py: null
   readme_creator.py: null
   simple_commit_agent.py: null
+  specification_writer.py: null
 agents:
   __init__.py: null
   __pycache__:
@@ -36,12 +39,13 @@ agents:
         __init__.cpython-312.pyc: null
         ai_commit_manager.cpython-312.pyc: null
         branch_manager.cpython-312.pyc: null
+        cleanup.cpython-312.pyc: null
         commit_manager.cpython-312.pyc: null
         pr_creator.cpython-312.pyc: null
         push_manager.cpython-312.pyc: null
       ai_commit_manager.py: null
       branch_manager.py: null
-      commit_manager.py: null
+      cleanup.py: null
       pr_creator.py: null
       prompts:
         commit_message.yaml: null
@@ -55,12 +59,20 @@ agents:
       __pycache__:
         __init__.cpython-312.pyc: null
         create_structure.cpython-312.pyc: null
+        reset_readme.cpython-312.pyc: null
       create_structure.py: null
       reset_readme.py: null
     scan_directory_structure.py: null
-  multi-agent:
+  multi_agent:
     __init__.py: null
+    __pycache__:
+      __init__.cpython-312.pyc: null
+      interview_conductor.cpython-312.pyc: null
+      persona_generator.cpython-312.pyc: null
+    information_evaluator.py: null
+    interview_conductor.py: null
     multi_agent_coordinator.py: null
+    persona_generator.py: null
   planning:
     __init__.py: null
     __pycache__:
@@ -82,9 +94,11 @@ utils:
   __init__.py: null
   __pycache__:
     __init__.cpython-312.pyc: null
+    color_print.cpython-312.pyc: null
     git.cpython-312.pyc: null
     load_yaml.cpython-312.pyc: null
     readme.cpython-312.pyc: null
+  color_print.py: null
   git.py: null
   load_yaml.py: null
   readme.py: null
