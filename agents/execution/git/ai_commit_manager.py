@@ -56,7 +56,7 @@ class AICommitManager(AIBaseAgent):
 
     def add_changes(self) -> None:
         try:
-            subprocess.run(["git", "add", "-A"], check=True)
+            subprocess.run(["git", "add", "-p"], check=True)
             print("All changes have been staged.")
         except subprocess.CalledProcessError as e:
             print(f"Error staging changes: {e}")
