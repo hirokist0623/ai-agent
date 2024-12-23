@@ -6,7 +6,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 
 from agents.ai_base_agent import AIBaseAgent
 from utils.load_yaml import load_yaml
-from utils.color_print import iinput
+from utils.color_print import gprint, iinput
 
 
 class AICommitManager(AIBaseAgent):
@@ -30,7 +30,8 @@ class AICommitManager(AIBaseAgent):
 
         self.status()
         commit_message = self.generate_commit_message()
-        print(f"\nCommit message:\n{commit_message}\n")
+        print(f"\nCommit message:\n")
+        gprint(f"{commit_message}\n")
 
         confirmation = iinput(
             "Do you want to commit these changes? (y/n): "
