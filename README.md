@@ -10,10 +10,12 @@ ai-agent/
 ├── README.md
 ├── agent_compositions
 │   ├── agents_base.py
+│   ├── agents_modern_base.py
 │   ├── init
 │   │   └── main.py
 │   ├── readme_creator.py
-│   └── simple_commit_agent.py
+│   ├── simple_commit_agent.py
+│   └── specification_writer.py
 ├── agents
 │   ├── ai_base_agent.py
 │   ├── base_agent.py
@@ -21,7 +23,7 @@ ai-agent/
 │   │   ├── git
 │   │   │   ├── ai_commit_manager.py
 │   │   │   ├── branch_manager.py
-│   │   │   ├── commit_manager.py
+│   │   │   ├── cleanup.py
 │   │   │   ├── pr_creator.py
 │   │   │   ├── prompts
 │   │   │   │   └── commit_message.yaml
@@ -32,8 +34,11 @@ ai-agent/
 │   │   │   ├── create_structure.py
 │   │   │   └── reset_readme.py
 │   │   └── scan_directory_structure.py
-│   ├── multi-agent
-│   │   └── multi_agent_coordinator.py
+│   ├── multi_agent
+│   │   ├── information_evaluator.py
+│   │   ├── interview_conductor.py
+│   │   ├── multi_agent_coordinator.py
+│   │   └── persona_generator.py
 │   ├── planning
 │   │   └── planning_agent.py
 │   ├── reflection
@@ -46,6 +51,7 @@ ai-agent/
 │   └── main.py
 ├── package.json
 └── utils
+    ├── color_print.py
     ├── git.py
     ├── load_yaml.py
     └── readme.py

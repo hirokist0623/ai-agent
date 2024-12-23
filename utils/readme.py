@@ -1,11 +1,13 @@
 import os
 from utils.git import get_git_root
 
+from utils.color_print import gprint
+
 
 def clear_readme():
     readme_path = os.path.join(get_git_root(), "README.md")
     open(readme_path, "w", encoding="utf-8").close()
-    print(f"README.md has been cleared at {readme_path}")
+    gprint(f"README.md has been cleared at {readme_path}\n\n")
 
 
 def append_to_readme(content: str, header: str = "## Header") -> None:
@@ -20,4 +22,5 @@ def append_to_readme(content: str, header: str = "## Header") -> None:
             readme_file.write("\n```")
         readme_file.write("\n")
 
-    print(f"\nContent has been appended to {readme_path}")
+    print(f"Content has been appended to {readme_path}\n")
+    gprint(f"Content:\n{content}\n\n")
