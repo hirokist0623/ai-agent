@@ -4,8 +4,6 @@ from agents.base_agent import BaseAgent
 from utils.git import get_git_root
 from utils.readme import append_to_readme, clear_readme
 
-from utils.color_print import gprint
-
 
 class ResetReadmeAgent(BaseAgent):
     def __init__(self):
