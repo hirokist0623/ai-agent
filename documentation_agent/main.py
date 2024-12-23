@@ -8,21 +8,15 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
+from agents.multi_agent.persona_generator import (
+    Persona,
+    Personas,
+    PersonaGenerator,
+)
+
+
 # .envファイルから環境変数を読み込む
 load_dotenv()
-
-
-# ペルソナを表すデータモデル
-class Persona(BaseModel):
-    name: str = Field(..., description="ペルソナの名前")
-    background: str = Field(..., description="ペルソナの持つ背景")
-
-
-# ペルソナのリストを表すデータモデル
-class Personas(BaseModel):
-    personas: list[Persona] = Field(
-        default_factory=list, description="ペルソナのリスト"
-    )
 
 
 # インタビュー内容を表すデータモデル
@@ -61,34 +55,6 @@ class InterviewState(BaseModel):
     is_information_sufficient: bool = Field(
         default=False, description="情報が十分かどうか"
     )
-
-
-# ペルソナを生成するクラス
-class PersonaGenerator:
-    def __init__(self, llm: ChatOpenAI, k: int = 5):
-        self.llm = llm.with_structured_output(Personas)
-        self.k = k
-
-    def run(self, user_request: str) -> Personas:
-        # プロンプトテンプレートを定義
-        prompt = ChatPromptTemplate.from_messages(
-            [
-                (
-                    "system",
-                    "あなたはユーザーインタビュー用の多様なペルソナを作成する専門家です。",
-                ),
-                (
-                    "human",
-                    f"以下のユーザーリクエストに関するインタビュー用に、{self.k}人の多様なペルソナを生成してください。\n\n"
-                    "ユーザーリクエスト: {user_request}\n\n"
-                    "各ペルソナには名前と簡単な背景を含めてください。年齢、性別、職業、技術的専門知識において多様性を確保してください。",
-                ),
-            ]
-        )
-        # ペルソナ生成のためのチェーンを作成
-        chain = prompt | self.llm
-        # ペルソナを生成
-        return chain.invoke({"user_request": user_request})
 
 
 # インタビューを実施するクラス
@@ -266,9 +232,11 @@ class RequirementsDocumentGenerator:
 
 # 要件定義書生成AIエージェントのクラス
 class DocumentationAgent:
-    def __init__(self, llm: ChatOpenAI, k: Optional[int] = None):
+    def __init__(
+        self, llm: ChatOpenAI, k: Optional[int] = None, user_request: str = ""
+    ):
         # 各種ジェネレータの初期化
-        self.persona_generator = PersonaGenerator(llm=llm, k=k)
+        self.persona_generator = PersonaGenerator(user_request=user_request)
         self.interview_conductor = InterviewConductor(llm=llm)
         self.information_evaluator = InformationEvaluator(llm=llm)
         self.requirements_generator = RequirementsDocumentGenerator(llm=llm)
@@ -375,7 +343,7 @@ def main():
     # ChatOpenAIモデルを初期化
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.0)
     # 要件定義書生成AIエージェントを初期化
-    agent = DocumentationAgent(llm=llm, k=args.k)
+    agent = DocumentationAgent(llm=llm, k=args.k, user_request=args.task)
     # エージェントを実行して最終的な出力を取得
     final_output = agent.run(user_request=args.task)
 
