@@ -10,9 +10,14 @@ def clear_readme():
     gprint(f"README.md has been cleared at {readme_path}\n\n")
 
 
-def append_to_readme(content: str, header: str = "## Header") -> None:
-    readme_path = os.path.join(get_git_root(), "README.md")
-    with open(readme_path, "a", encoding="utf-8") as readme_file:
+def append_to_readme(
+    content: str, header: str = "## Header", file_path: str = ""
+) -> None:
+    readme_path = os.path.join(get_git_root(), file_path, "README.md")
+    os.makedirs(os.path.dirname(readme_path), exist_ok=True)
+    mode = "a" if os.path.exists(readme_path) else "w"
+
+    with open(readme_path, mode, encoding="utf-8") as readme_file:
         if header:
             readme_file.write(f"\n\n{header}\n\n")
             if not content.startswith("```"):

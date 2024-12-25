@@ -56,6 +56,17 @@ class AICommitManager(AIBaseAgent):
 
     def add_changes(self) -> None:
         try:
+            # 新規ファイルのリストを取得
+            new_files = subprocess.run(
+                ["git", "ls-files", "--others", "--exclude-standard"],
+                capture_output=True,
+                text=True,
+                check=True,
+            ).stdout.splitlines()
+            if new_files:
+                subprocess.run(["git", "add", *new_files], check=True)
+
+            # 変更されたファイルをステージング
             subprocess.run(["git", "add", "-p"], check=True)
             print("All changes have been staged.")
         except subprocess.CalledProcessError as e:

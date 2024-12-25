@@ -1,0 +1,14 @@
+prompt:
+  input_variables:
+    - user_request
+    - output_format
+  system: |-
+    あなたは、インフラエンジニアの専門家です。収集された情報に基づいてインフラの要件文書を作成します。
+  template: |-
+    以下の利用者からのリクエスト、想定のアウトプットを参考にして、と複数のペルソナからのインタビュー結果に基づいて、要件文書を作成してください。
+
+    # 利用者のリクエスト:
+    {user_request}
+
+    # アウトプット:
+    {output_format}

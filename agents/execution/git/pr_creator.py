@@ -77,14 +77,16 @@ class PRCreator(BaseAgent):
             sys.exit(1)
 
     def format_pr_title(self, branch_name):
-        if not branch_name.lower().startswith("feature/"):
-            branch_name = "feature/" + branch_name
+        parts = branch_name.split("/", 1)
 
-        parts = branch_name.split("/")
-        if len(parts) > 1:
-            parts[1] = parts[1].capitalize()
+        prefix = parts[0].capitalize() if len(parts) > 1 else "Feature"
+        remaining = parts[1] if len(parts) > 1 else branch_name
 
-        return "Feature/" + "/".join(parts[1:])
+        capitalized_remaining = " ".join(
+            word.lower() for word in remaining.split("_")
+        )  # noqa
+
+        return f"{prefix}/{capitalized_remaining}"
 
     def get_pr_template(self):
         template_path = ".github/pull_request_template.md"
