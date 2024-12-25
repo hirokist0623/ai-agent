@@ -6,7 +6,6 @@ from agents.ai_base_agent import AIBaseAgent
 
 from utils.readme import append_to_readme
 from utils.load_yaml import load_file, load_yaml
-from utils.color_print import gprint
 
 
 class InfraRequirementsDocumentGenerator(AIBaseAgent):

@@ -9,12 +9,16 @@ const commandConfigs = {
     "command": ['init', 'Initialize the agent structure', {}],
     "module": 'agent_compositions.init.main'
   },
+  "start": {
+    "command": ['start', 'Start using agents', {}],
+    "module": 'agent_compositions.start.main'
+  },
   "cleanup": {
     "command": ['cleanup', 'Clean up local environment', {}],
     "module": 'agents.execution.git.cleanup'
   },
   "commit": {
-    "command": ['cleanup', 'Clean up local environment', {}],
+    "command": ['commit', 'Support committing', {}],
     "module": 'agents.execution.git.simple_commit_agent'
   },
   "generate": {
