@@ -22,7 +22,9 @@ def get_git_root() -> str:
 def get_github_url() -> str:
     repo = git.Repo(search_parent_directories=True)
     remote_url = repo.remotes.origin.url
+    print(f"Remote URL: {remote_url}")
     parsed_url = urlparse(remote_url)
+    print(f"Remote URL: {parsed_url}")
     if parsed_url.scheme == "https":
         return remote_url.rstrip(".git")
     elif parsed_url.scheme == "git":
@@ -40,4 +42,5 @@ def get_commit_hash() -> str:
 
 def git_commit_url() -> str:
     commit_hash = get_commit_hash()
+    print(f"Commit URL: {get_github_url()}")
     return f"{get_github_url()}/commit/{commit_hash}"
