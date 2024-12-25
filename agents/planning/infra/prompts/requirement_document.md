@@ -19,54 +19,54 @@
 
 ### 2.1 利用するベンダー
 
-- Amazon Web Services (AWS)
+- 例: Amazon Web Services (AWS)
 
 ### 2.2 利用する主要サービス/機能
 
 #### コンピューティング
 
-- Amazon EC2 (Elastic Compute Cloud)
+- 例: Amazon EC2 (Elastic Compute Cloud)
   - (用途: 例えば Web サーバー、アプリケーションサーバーなど)
-- Amazon ECS (Elastic Container Service)
+- 例: Amazon ECS (Elastic Container Service)
   - (用途: コンテナ化されたアプリケーションの実行と管理)
 
 #### ネットワーキング
 
-- Amazon VPC (Virtual Private Cloud)
-- Elastic Load Balancing
+- 例: Amazon VPC (Virtual Private Cloud)
+- 例: Elastic Load Balancing
   - (用途: トラフィック分散、高可用性の確保)
 
 #### ストレージ
 
-- Amazon S3 (Simple Storage Service)
+- 例: Amazon S3 (Simple Storage Service)
   - (用途: 静的ファイルの保存、バックアップなど)
-- Amazon EBS (Elastic Block Store)
+- 例: Amazon EBS (Elastic Block Store)
   - (用途: EC2 インスタンス用の永続的ストレージ)
 
 #### データベース
 
-- Amazon RDS (Relational Database Service)
+- 例: Amazon RDS (Relational Database Service)
   - (使用するデータベースエンジン: 例えば MySQL, PostgreSQL など)
 
 #### セキュリティ、ID、アクセス管理
 
-- AWS IAM (Identity and Access Management)
-- Amazon Cognito
+- 例: AWS IAM (Identity and Access Management)
+- 例: Amazon Cognito
   - (用途: ユーザー認証、認可の管理)
 
 #### 監視とロギング
 
-- Amazon CloudWatch
-- AWS CloudTrail
+- 例: Amazon CloudWatch
+- 例: AWS CloudTrail
 
 #### CI/CD
 
-- AWS CodePipeline
+- 例: AWS CodePipeline
   - (用途: 継続的インテグレーション/デリバリーパイプラインの構築)
-- AWS CodeBuild
-- AWS CodeDeploy
+- 例: AWS CodeBuild
+- 例: AWS CodeDeploy
 
 #### その他
 
-- Amazon Route 53 (DNS サービス)
-- Amazon CloudFront (コンテンツデリバリーネットワーク)
+- 例: Amazon Route 53 (DNS サービス)
+- 例: Amazon CloudFront (コンテンツデリバリーネットワーク)

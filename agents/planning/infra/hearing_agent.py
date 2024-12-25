@@ -69,6 +69,25 @@ class InfraHearingAgent(AIBaseAgent):
         return question
 
     def _check_satisfaction(self) -> bool:
+        messages = [
+            (
+                "system",
+                self.prompt.get("system"),
+            ),
+            (
+                "human",
+                self.prompt.get("satisfied_template"),
+            ),
+        ]
+
+        satisfaction_message = self.run(
+            messages,
+            input_data={
+                "output_format": self.document_template,
+                "conversation_history": "\n\n".join(self.conversation),
+            },
+        )
+        gprint(satisfaction_message)
         response = iinput("\nヒアリングを終了しますか？ [y/n]: ")
         return response.lower() == "yes" or response.lower() == "y"
 

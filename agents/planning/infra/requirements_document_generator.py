@@ -4,6 +4,7 @@ import os
 
 from agents.ai_base_agent import AIBaseAgent
 
+from utils.readme import append_to_readme
 from utils.load_yaml import load_file, load_yaml
 from utils.color_print import gprint
 
@@ -35,10 +36,12 @@ class InfraRequirementsDocumentGenerator(AIBaseAgent):
 
         if self.user_request is None:
             raise ValueError("User request is required.")
-        self.create_document()
+        requirements_doc = self.create_document()
+        append_to_readme(
+            requirements_doc, header="# インフラ要件定義書", file_path="doc/infra/"
+        )
 
     def create_document(self) -> str:
-
         try:
             messages = [
                 (
@@ -58,16 +61,11 @@ class InfraRequirementsDocumentGenerator(AIBaseAgent):
                     "output_format": self.document_template,
                 },
             )
-            self._print_requirements(requirements_doc)
             return requirements_doc
 
         except Exception as e:
             print(f"要件文書の生成中にエラーが発生しました: {str(e)}")
             return "要件文書の生成中にエラーが発生しました。"
-
-    def _print_requirements(self, requirements_doc: str) -> None:
-        print("生成された要件文書:")
-        gprint(requirements_doc)
 
 
 if __name__ == "__main__":
