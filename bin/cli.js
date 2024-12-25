@@ -11,7 +11,7 @@ const commandConfigs = {
   },
   "start": {
     "command": ['start', 'Start using agents', {}],
-    "module": 'agent_compositions.start.main'
+    "module": 'agent_compositions.start'
   },
   "cleanup": {
     "command": ['cleanup', 'Clean up local environment', {}],
