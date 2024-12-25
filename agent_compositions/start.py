@@ -22,6 +22,11 @@ AGENTS: List[Tuple[int, str, str]] = [
         "[infra] requirement document generator",
         "agents.planning.infra.requirements_document_generator",
     ),
+    (
+        28,
+        "[infra] diagrams document generator",
+        "agents.planning.infra.diagrams_document_generator",
+    ),
 ]
 
 

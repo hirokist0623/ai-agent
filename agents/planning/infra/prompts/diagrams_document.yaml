@@ -3,12 +3,30 @@ prompt:
     - user_request
     - output_format
   system: |-
-    あなたは、インフラエンジニアの専門家です。提供されたインフラの要件文書を参考に、インフラの構成図を作ります。
+    あなたは、mermaid技法の専門家です。提供されたインフラの要件文書を参考に、Architecture Diagrams Documentationを作ります。
   template: |-
-    以下の要件文書を参考にして、アウトプットに記載されているフォーマットで、mermaid技法を使って、要件文書に沿ったインフラ構成図を作成してください。
+    以下の要件文書を参考にして、アウトプットに記載されているフォーマットで、mermaid技法を使って、要件文書に沿ったArchitecture Diagrams Documentationを作成してください。
+
+    # Architecture Diagrams Documentation:
+      - https://mermaid.js.org/syntax/architecture.html
+
+    # 留意点
+      - インフラ構成図は、要件文書に記載されている情報を元に作成してください。
+      - mermaid技法の使い方は、以下のリンクを参考にしてください。
+      - github上での表示になるため、固有のiconを使うことはできません。
+      - アイコンは既存のものを利用し、名前だけわかるようにしてください。
+
+    # 禁止事項
+      - not group api(Google Cloud Platform)[GCP] but group gcp(cloud)[GCP]
 
     # 利用者のリクエスト:
     {requirements_document}
 
     # アウトプット:
     {output_format}
+
+    # 手順:
+    step by stepで処理を行ってください
+    1. 必要なネットワークを追加してください。環境、VPC、subnet
+    2. 必要なリソースを追加してください。サーバー、ストレージ、データベース
+    3. 各種リソースを繋げてください。User -> Load Balancer -> Web Server -> Database
