@@ -1,10 +1,22 @@
 import importlib
 from typing import List
 
+from agents.base_agent import BaseAgent
 
-class AgentsBase:
+
+class AgentsBase(BaseAgent):
     def __init__(self, agents: List[str] = None) -> None:
+        super().__init__("AgentsBase")
         self.agents: List[str] = agents
+
+    def exec(self) -> None:
+        index = 0
+        try:
+            while index < len(self.agents):
+                self.execute_agent(self.agents[index])
+                index += 1
+        except KeyboardInterrupt:
+            print("\nProgram interrupted. Exiting.")
 
     def execute_agent(self, agent_path: str) -> None:
         try:
@@ -46,16 +58,7 @@ class AgentsBase:
                 f"{e}"  # noqa
             )
 
-    def run(self) -> None:
-        index = 0
-        try:
-            while index < len(self.agents):
-                self.execute_agent(self.agents[index])
-                index += 1
-        except KeyboardInterrupt:
-            print("\nProgram interrupted. Exiting.")
-
 
 if __name__ == "__main__":
     agents_base = AgentsBase()
-    agents_base.run()
+    agents_base.main()
