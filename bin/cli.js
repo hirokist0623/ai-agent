@@ -19,7 +19,7 @@ const commandConfigs = {
   },
   "commit": {
     "command": ['commit', 'Support committing', {}],
-    "module": 'agents.execution.git.simple_commit_agent'
+    "module": 'agent_compositions.simple_commit_agent'
   },
   "generate": {
     "command": ['generate <projectName>', 'Generate GCP infrastructure', (yargs) => {
