@@ -7,9 +7,8 @@ from utils.color_print import gprint, iinput
 class InfraHearingAgent(AIBaseAgent):
     def __init__(
         self,
-        model_name: str = "gpt-4o-mini",
     ):
-        super().__init__("InfraHearingAgent", model_name)
+        super().__init__("InfraHearingAgent")
         self.conversation = []
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
