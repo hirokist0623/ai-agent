@@ -31,7 +31,7 @@ class AICommitManager(AIBaseAgent):
 
         self.status()
         commit_message = self.generate_commit_message()
-        print(f"Commit message:\n")
+        print("Commit message:\n")
         gprint(f"{commit_message}\n")
 
         confirmation = iinput(

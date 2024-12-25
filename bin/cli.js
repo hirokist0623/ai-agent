@@ -7,7 +7,7 @@ const yargs = require('yargs');
 const commandConfigs = {
   "init": {
     "command": ['init', 'Initialize the agent structure', {}],
-    "module": 'agent_compositions.init.main'
+    "module": 'agent_compositions.init'
   },
   "start": {
     "command": ['start', 'Start using agents', {}],
