@@ -13,6 +13,10 @@ const commandConfigs = {
     "command": ['cleanup', 'Clean up local environment', {}],
     "module": 'agents.execution.git.cleanup'
   },
+  "commit": {
+    "command": ['cleanup', 'Clean up local environment', {}],
+    "module": 'agents.execution.git.simple_commit_agent'
+  },
   "generate": {
     "command": ['generate <projectName>', 'Generate GCP infrastructure', (yargs) => {
       yargs.positional('projectName', {
