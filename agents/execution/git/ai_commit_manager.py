@@ -6,6 +6,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 
 from agents.ai_base_agent import AIBaseAgent
 from utils.load_yaml import load_yaml
+from utils.git import git_commit_url
 from utils.color_print import gprint, iinput
 
 
@@ -30,7 +31,7 @@ class AICommitManager(AIBaseAgent):
 
         self.status()
         commit_message = self.generate_commit_message()
-        print(f"\nCommit message:\n")
+        print(f"Commit message:\n")
         gprint(f"{commit_message}\n")
 
         confirmation = iinput(
@@ -126,6 +127,7 @@ class AICommitManager(AIBaseAgent):
     def commit_changes(self, message: str) -> None:
         try:
             subprocess.run(["git", "commit", "-m", message], check=True)
+            self.log_info(f"Commit URL: {git_commit_url()}")
             print("変更が正常にコミットされました。")
         except subprocess.CalledProcessError as e:
             print(f"Error committing changes: {e}")
