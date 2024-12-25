@@ -82,9 +82,11 @@ agents:
       requirements_document_generator.cpython-312.pyc: null
     infra:
       __pycache__:
+        diagrams_document_cheker.cpython-312.pyc: null
         diagrams_document_generator.cpython-312.pyc: null
         hearing_agent.cpython-312.pyc: null
         requirements_document_generator.cpython-312.pyc: null
+      diagrams_document_cheker.py: null
       diagrams_document_generator.py: null
       hearing_agent.py: null
       md:
@@ -92,6 +94,7 @@ agents:
         requirement_document.md: null
       prompts:
         diagrams_document.yaml: null
+        diagrams_document_checker.yaml: null
         hearing_agent.yaml: null
         requirement_document.yaml: null
       requirements_document_generator.py: null
@@ -102,6 +105,9 @@ agents:
     __init__.py: null
 bin:
   cli.js: null
+docs:
+  infra:
+    README.md: null
 documentation_agent:
   __pycache__:
     main.cpython-312.pyc: null
