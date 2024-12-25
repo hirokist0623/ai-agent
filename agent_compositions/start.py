@@ -6,15 +6,20 @@ from agent_compositions.agents_base import AgentsBase
 from utils.color_print import iinput
 
 AGENTS: List[Tuple[int, str, str]] = [
-    (1, "1. commit supportor", "agent_compositions.simple_commit_agent"),
-    (2, "2. branch manager", "agents.execution.git.branch_manager"),
-    (3, "3. ai commit manager", "agents.execution.git.ai_commit_manager"),
-    (4, "4. push manager", "agents.execution.git.push_manager"),
-    (5, "5. pr creator", "agents.execution.git.pr_creator"),
-    (6, "6. infra hearing agent", "agents.planning.infra.hearing_agent"),
     (
-        7,
-        "7. requirement document generator",
+        1,
+        "[agents] commit supportor",
+        "agent_compositions.simple_commit_agent",
+    ),
+    (2, "[agents] create readme", "agent_compositions.readme_creator"),
+    (12, "branch manager", "agents.execution.git.branch_manager"),
+    (13, "ai commit manager", "agents.execution.git.ai_commit_manager"),
+    (14, "push manager", "agents.execution.git.push_manager"),
+    (15, "pr creator", "agents.execution.git.pr_creator"),
+    (26, "[infra] hearing agent", "agents.planning.infra.hearing_agent"),
+    (
+        27,
+        "[infra] requirement document generator",
         "agents.planning.infra.requirements_document_generator",
     ),
 ]
