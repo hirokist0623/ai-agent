@@ -7,6 +7,7 @@ class ReadmeCreatorAgent(AgentsBase):
             [
                 "agents.execution.git.branch_manager",
                 "agents.execution.init_config.create_config",
+                "agents.execution.git.create_template",
                 "agents.execution.git.ai_commit_manager",
                 "agents.execution.git.push_manager",
                 "agents.execution.git.pr_creator",
