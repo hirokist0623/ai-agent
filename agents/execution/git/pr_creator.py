@@ -83,8 +83,8 @@ class PRCreator(BaseAgent):
         remaining = parts[1] if len(parts) > 1 else branch_name
 
         capitalized_remaining = " ".join(
-            word.lower().capitalize() for word in remaining.split("_")
-        )
+            word.lower() for word in remaining.split("_")
+        )  # noqa
 
         return f"{prefix}/{capitalized_remaining}"
 
