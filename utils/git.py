@@ -28,6 +28,8 @@ def get_github_url() -> str:
     if parsed_url.scheme == "https":
         return remote_url.rstrip(".git")
     elif parsed_url.scheme == "git":
+        print(f"parsed_url.scheme: {parsed_url.scheme}")
+        print(f"parsed_url.scheme: {parsed_url.path}")
         return f"https://github.com{parsed_url.path}".rstrip(".git")
     else:
         # SSHの場合
