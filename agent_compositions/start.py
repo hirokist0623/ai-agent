@@ -22,6 +22,11 @@ AGENTS: List[Tuple[int, str, str]] = [
         "[infra] requirement document generator",
         "agents.planning.infra.requirements_document_generator",
     ),
+    (
+        28,
+        "[infra] diagrams document generator",
+        "agents.planning.infra.diagrams_document_generator",
+    ),
 ]
 
 
@@ -29,7 +34,7 @@ class StartAgents(AgentsBase):
     def __init__(self):
         super().__init__([])
 
-    def run(self) -> None:
+    def exec(self) -> None:
         try:
             while True:
                 agent_id = self.get_agent()
@@ -59,4 +64,4 @@ class StartAgents(AgentsBase):
 
 if __name__ == "__main__":
     simple_commit_agent = StartAgents()
-    simple_commit_agent.run()
+    simple_commit_agent.main()
