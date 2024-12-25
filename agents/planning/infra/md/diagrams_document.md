@@ -12,6 +12,9 @@ architecture-beta
     group private_api2(cloud)[Private subnet] in vpc
 
     service user(internet)[User] in web
+    service github(internet)[Github] in web
+
+    service cloud_build(internet)[Cloud Build] in aws
 
     service front(internet)[Fire Wall] in aws
     service alb(server)[Load Balanser] in vpc
@@ -29,6 +32,10 @@ architecture-beta
     junction junction1
 
     user:R --> L:front
+
+    github:B --> T:cloud_build
+    cloud_build:B --> T:ecs_api
+
     front:B --> T:strage
     front:R --> L:alb
     alb:R -- L:junction1
