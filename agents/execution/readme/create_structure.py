@@ -100,6 +100,7 @@ class CreateStructureAgent(BaseAgent):
         return "\n".join(lines)
 
     def print_structure(self, structure):
+        structure = f"```\n{structure}\n```"
         append_to_readme(structure, "## Directory Structure")
 
 
