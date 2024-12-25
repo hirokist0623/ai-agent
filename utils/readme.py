@@ -20,11 +20,7 @@ def append_to_readme(
     with open(readme_path, mode, encoding="utf-8") as readme_file:
         if header:
             readme_file.write(f"\n\n{header}\n\n")
-            if not content.startswith("```"):
-                readme_file.write("```\n")
         readme_file.write(content)
-        if header and not content.endswith("```"):
-            readme_file.write("\n```")
         readme_file.write("\n")
 
     print(f"Content has been appended to {readme_path}\n")

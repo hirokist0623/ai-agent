@@ -42,7 +42,7 @@ class InfraDiagramsDocumentGenerator(AIBaseAgent):
         if self.requirements_document is None:
             raise ValueError("User request is required.")
         requirements_doc = self.create_document()
-        append_to_readme(requirements_doc, header="# インフラ構成図")
+        append_to_readme(requirements_doc, header="## インフラ構成図")
 
     def create_document(self) -> str:
         try:

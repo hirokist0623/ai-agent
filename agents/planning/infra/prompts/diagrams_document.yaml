@@ -22,7 +22,7 @@ prompt:
     # 利用者のリクエスト:
     {requirements_document}
 
-    # アウトプット:
+    # アウトプットイメージ:
     {output_format}
 
     # 手順:
@@ -30,3 +30,7 @@ prompt:
     1. 必要なネットワークを追加してください。環境、VPC、subnet
     2. 必要なリソースを追加してください。サーバー、ストレージ、データベース
     3. 各種リソースを繋げてください。User -> Load Balancer -> Web Server -> Database
+
+    # アウトプット:
+    ```mermaid
+    ....
