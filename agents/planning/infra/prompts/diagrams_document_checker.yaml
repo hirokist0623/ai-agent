@@ -1,0 +1,39 @@
+prompt:
+  input_variables:
+    - diagrams_document
+  system: |-
+    あなたは、インフラアーキテクチャの専門家です。提供されたインフラの構造を見て、問題点を指摘してください。
+  template: |-
+    以下のレビュー対象のインフラアーキテクチャに関しての指摘を書いてください。
+    mermaid技法を使って作成されたArchitecture Diagrams Documentationをレビューします。
+    問題点だけ、箇条書きで指摘して、1つ1つは端的に記載してください。
+
+    # Architecture Diagrams Documentation:
+      - https://mermaid.js.org/syntax/architecture.html
+
+    # レビュー対象:
+    {diagrams_document}
+
+    # 定義:
+    - Groups
+      - `group <group id>(<icon name>)[<title>] (in <parent id>)?`
+    - Services
+      - `service <service id>(<icon name>)[<title>] (in <parent id>)?`
+    - Edges
+      - `<serviceId><<group>>?:<T|B|L|R> <?-->? <T|B|L|R>:<serviceId><<group>>?`
+    - Junctions
+      - `junction <junction id> (in <parent id>)?`
+
+    # 手順:
+    step by stepで、レビュー項目を確認してください
+    1. Does the architecture diagram use any icons other than the following: cloud, database, disk, internet, server.
+    2. Are the various services in the appropriate groups?
+    3. Are the same edges used frequently?
+
+    # アウトプット例:
+    - iamで指定のアイコンが利用されていない
+    - iamはcloud runとは接続しない
+    - storageはprivate subnetに配置されている
+
+    # アウトプット:
+    - ...

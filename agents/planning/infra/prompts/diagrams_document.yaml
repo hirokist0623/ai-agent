@@ -1,10 +1,12 @@
 prompt:
   input_variables:
-    - user_request
+    - requirements_document
     - output_format
+    - previous_diagrams_document
+    - check_list
   system: |-
     あなたは、mermaid技法の専門家です。提供されたインフラの要件文書を参考に、Architecture Diagrams Documentationを作ります。
-  template: |-
+  create_template: |-
     以下の要件文書を参考にして、アウトプットに記載されているフォーマットで、mermaid技法を使って、要件文書に沿ったArchitecture Diagrams Documentationを作成してください。
 
     # Architecture Diagrams Documentation:
@@ -30,6 +32,55 @@ prompt:
     1. 必要なネットワークを追加してください。環境、VPC、subnet
     2. 必要なリソースを追加してください。サーバー、ストレージ、データベース
     3. 各種リソースを繋げてください。User -> Load Balancer -> Web Server -> Database
+
+    # アウトプット例:
+    group public_api(cloud)[Public subnet] in vpc
+    group private_api(cloud)[Private subnet] in vpc
+
+    service user(internet)[User] in web
+    service github(internet)[Github] in web
+    service cloud_build(internet)[Cloud Build] in aws
+    service front(internet)[Fire Wall] in aws
+    service alb(server)[Load Balanser] in vpc
+    service storage(disk)[Storage] in aws
+    service ecs(server)[ECS] in public_api
+    service container(server)[Container] in public_api
+    service db(database)[Database] in private_api
+
+    user:R --> L:front
+    github:B --> T:cloud_build
+    cloud_build:B --> T:ecs_api
+    front:B --> T:strage
+    front:R --> L:alb
+    alb:R -- L:junction1
+    junction1:T --> B:ecs_api
+    junction1:B --> T:ecs_front
+    ecs_front:R --> L:container_front
+    ecs_api:R --> L:container_api
+    container_api:R --> L:db1
+
+    # アウトプット:
+    ```mermaid
+    ....
+  modify_template: |-
+    チェックリストの内容を修正したうえで、アウトプットに記載されているフォーマットで、
+    mermaid技法を使って、要件文書に沿ったArchitecture Diagrams Documentationを作成してください。
+
+
+    # Architecture Diagrams Documentation:
+      - https://mermaid.js.org/syntax/architecture.html
+
+    # 利用者のリクエスト:
+    {requirements_document}
+
+    # 前回のインフラ構成図:
+    {previous_diagrams_document}
+
+    # チェックリスト:
+    {check_list}
+
+    # アウトプットイメージ:
+    {output_format}
 
     # アウトプット:
     ```mermaid
