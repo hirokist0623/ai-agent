@@ -24,15 +24,15 @@ class PRCreator(BaseAgent):
         gprint(f"Head branch: {head}")
         gprint(f"PR title: {title}\n")
 
-        # Check if PR already exists
-        if self.check_existing_pr(repo, head):
-            print("Skipping PR creation as one already exists.")
-            return
-
         # Get PR body from template
         body = self.get_pr_template()
         gprint("PR body template:")
         gprint(body)
+
+        # Check if PR already exists
+        if self.check_existing_pr(repo, head):
+            print("Skipping PR creation as one already exists.")
+            return
 
         # Ask for confirmation of the PR body
         confirmation = self.get_confirmation()
