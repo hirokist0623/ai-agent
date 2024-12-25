@@ -1,22 +1,18 @@
 import os
 
-# from typing import List
-
 from agents.ai_base_agent import AIBaseAgent
 
 from utils.readme import append_to_readme
 from utils.load_yaml import load_file, load_yaml
-from utils.color_print import gprint
+from utils.color_print import iinput
 
 
 class InfraRequirementsDocumentGenerator(AIBaseAgent):
     def __init__(
         self,
-        model_name: str = "gpt-4o-mini",
-        user_request: str = None,
     ):
-        super().__init__("RequirementsDocumentGenerator", model_name)
-        self.user_request = user_request
+        super().__init__("RequirementsDocumentGenerator")
+        self.user_request: str = self.get_request()
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
         yaml_path = os.path.join(
@@ -40,6 +36,10 @@ class InfraRequirementsDocumentGenerator(AIBaseAgent):
         append_to_readme(
             requirements_doc, header="# インフラ要件定義書", file_path="doc/infra/"
         )
+
+    def get_request(self) -> str:
+        input_request = iinput("あなたのインフラの簡易的な要件を教えてください: ")
+        return input_request
 
     def create_document(self) -> str:
         try:
@@ -69,10 +69,5 @@ class InfraRequirementsDocumentGenerator(AIBaseAgent):
 
 
 if __name__ == "__main__":
-
-    input_request = (
-        "google coloudのインフラを作りたいです。cloud runを使って、"
-        "デプロイもgithubにmergeした段階で反映したいです。"
-    )
-    evaluator = InfraRequirementsDocumentGenerator(user_request=input_request)
+    evaluator = InfraRequirementsDocumentGenerator()
     evaluator.main()
