@@ -22,7 +22,7 @@ class PRCreator(BaseAgent):
         gprint(f"Repository: {repo}")
         gprint(f"Base branch: {base}")
         gprint(f"Head branch: {head}")
-        gprint(f"PR title: {title}")
+        gprint(f"PR title: {title}\n")
 
         # Check if PR already exists
         if self.check_existing_pr(repo, head):
@@ -43,6 +43,7 @@ class PRCreator(BaseAgent):
         pr_url = self.create_pull_request(repo, base, head, title, body)
         if pr_url:
             gprint(f"Pull request created successfully. PR URL: {pr_url}")
+            self.log_info(f"Pull request created successfully. PR URL: {pr_url}")
 
     def get_current_repo(self):
         try:
@@ -117,7 +118,7 @@ class PRCreator(BaseAgent):
             for pr in prs:
                 if pr["head"]["ref"] == head:
                     pr_url = pr["html_url"]
-                    print(
+                    gprint(
                         f"A pull request already exists for this branch: {pr_url}"  # noqa
                     )
                     return True
