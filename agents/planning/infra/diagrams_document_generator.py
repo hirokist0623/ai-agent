@@ -3,43 +3,46 @@ import os
 from agents.ai_base_agent import AIBaseAgent
 
 from utils.readme import append_to_readme
+from utils.git import get_git_root
 from utils.load_yaml import load_file, load_yaml
-from utils.color_print import iinput
 
 
-class InfraRequirementsDocumentGenerator(AIBaseAgent):
+class InfraDiagramsDocumentGenerator(AIBaseAgent):
     def __init__(
         self,
     ):
         super().__init__("RequirementsDocumentGenerator")
-        self.user_request: str = self.get_request()
+        git_root = get_git_root()
+        file_path = os.path.join(
+            git_root,
+            "docs",
+            "infra",
+            "README.md",
+        )
+        self.requirements_document = load_file(file_path)
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
+
         yaml_path = os.path.join(
             script_dir,
             "prompts",
-            "requirement_document.yaml",
+            "diagrams_document.yaml",
         )
         self.prompt = load_yaml(yaml_path).get("prompt")
+
         file_path = os.path.join(
             script_dir,
             "md",
-            "requirement_document.md",
+            "diagrams_document.md",
         )
         self.document_template = load_file(file_path)
 
     def exec(self) -> str:
 
-        if self.user_request is None:
+        if self.requirements_document is None:
             raise ValueError("User request is required.")
         requirements_doc = self.create_document()
-        append_to_readme(
-            requirements_doc, header="# インフラ要件定義書", file_path="docs/infra/"
-        )
-
-    def get_request(self) -> str:
-        input_request = iinput("あなたのインフラの簡易的な要件を教えてください: ")
-        return input_request
+        append_to_readme(requirements_doc, header="# インフラ構成図")
 
     def create_document(self) -> str:
         try:
@@ -57,7 +60,7 @@ class InfraRequirementsDocumentGenerator(AIBaseAgent):
             requirements_doc: str = self.run(
                 messages,
                 input_data={
-                    "user_request": self.user_request,
+                    "requirements_document": self.requirements_document,
                     "output_format": self.document_template,
                 },
             )
@@ -69,5 +72,5 @@ class InfraRequirementsDocumentGenerator(AIBaseAgent):
 
 
 if __name__ == "__main__":
-    evaluator = InfraRequirementsDocumentGenerator()
+    evaluator = InfraDiagramsDocumentGenerator()
     evaluator.main()

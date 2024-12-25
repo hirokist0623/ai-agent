@@ -14,4 +14,4 @@ class ReadmeCreatorAgent(AgentsBase):
 
 if __name__ == "__main__":
     agent = ReadmeCreatorAgent()
-    agent.run()
+    agent.main()

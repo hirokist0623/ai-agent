@@ -1,0 +1,14 @@
+prompt:
+  input_variables:
+    - user_request
+    - output_format
+  system: |-
+    あなたは、インフラエンジニアの専門家です。提供されたインフラの要件文書を参考に、インフラの構成図を作ります。
+  template: |-
+    以下の要件文書を参考にして、アウトプットに記載されているフォーマットで、mermaid技法を使って、要件文書に沿ったインフラ構成図を作成してください。
+
+    # 利用者のリクエスト:
+    {requirements_document}
+
+    # アウトプット:
+    {output_format}

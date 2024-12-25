@@ -15,4 +15,4 @@ class SimpleCommitAgent(AgentsBase):
 
 if __name__ == "__main__":
     simple_commit_agent = SimpleCommitAgent()
-    simple_commit_agent.run()
+    simple_commit_agent.main()
