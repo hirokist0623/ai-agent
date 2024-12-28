@@ -9,7 +9,7 @@ class InitConfigAgent(BaseAgent):
         self.root_dir = self.find_git_root()
         self.ai_agents_dir = os.path.join(self.root_dir, ".ai_agents")
         self.config_file = os.path.join(self.ai_agents_dir, "config.yaml")
-        self.log_dir = os.path.join(self.ai_agents_dir, "log")
+        self.log_dir = os.path.join(self.ai_agents_dir, "logs")
         self.gitignore_file = os.path.join(self.root_dir, ".gitignore")
 
     def main(self):
